@@ -43,7 +43,14 @@ namespace TestCountInnerLettersInWords
 		[DataRow("It!was@many#and$many%a^year~ago", "I0t!w1s@m2y#a1d$m2y%a^y2r~a1o")]
 		[DataRow("It!..<>was@@many#and$many%a^year~ago...", "I0t!..<>w1s@@m2y#a1d$m2y%a^y2r~a1o...")]
 		[DataRow("", "")]
+		[DataRow("in_a_kingdom_by_the_sea_", "i0n_a_k5m_b0y_t1e_s1a_")]
 		[DataRow("...!@#", "...!@#")]
+		[DataRow("418 I'm a teapot", "418 I'm a t4t")]
+		[DataRow("I'm left-handed", "I'm l2t-h4d")]
+		[DataRow("pneumonoultramicroscopicsilicovolcanoconiosis", "p14s")]
+		[DataRow("Lopez-Garcia Smith-Kline", "L3z-G4a S3h-K3e")]
+		[DataRow("high-grade four-dimensional mother-in-law ultra-violet", "h2h-g3e f2r-d7l m4r-i0n-l1w u3a-v4t")]
+		[DataRow(@"Floccinaucinihilipilification?Antidisestablishmentarianism*()?|Supercalifragilisticexpialidocious", @"F11n?A12m*()?|S15s")]
 		//[DataRow("It💠was💠many💠and💠many💠a💠year💠ago", "I0t💠w1s💠m2y💠a1d💠m2y💠a💠y2r💠a1o")] // Does not currently handle unicode
 		[DeploymentItem("CountInnerLettersInWords.exe")]
 		public void TestLettersInWords(string input, string expectedOutput)
@@ -60,9 +67,20 @@ namespace TestCountInnerLettersInWords
 				// Synchronously read the standard output of the spawned process.
 				StreamReader reader = process.StandardOutput;
 				string output = reader.ReadToEnd();
-
-				if (String.Equals(expectedOutput, output) == false)
-					Assert.Fail($"{output} did not match {expectedOutput}");
+				
+				TestContext.WriteLine($"Comparing output for string:\n" +
+					$"\"{input}\"");
+				if (String.Equals(expectedOutput, output))
+					TestContext.WriteLine($"Output string:\n" +
+						$"\"{output}\"" +
+						$"\n Matches expected output:\n" +
+						$"\"{expectedOutput}\"");
+				if (!String.Equals(expectedOutput, output))
+					Assert.Fail($"\n" +
+						$" Output string:\n" +
+						$"\"{output}\"\n" +
+						$" Does not match expected output:\n" +
+						$"\"{expectedOutput}\"");
 
 				process.WaitForExit();
 			}
