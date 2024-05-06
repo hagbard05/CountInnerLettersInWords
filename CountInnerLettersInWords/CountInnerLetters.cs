@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CountInnerLettersInWords
 {
+    /// <summary>
+    /// Contans Methods for counting letters within words within strings
+    /// </summary>
 	public class CountInnerLetters
 	{
         /// <summary>
