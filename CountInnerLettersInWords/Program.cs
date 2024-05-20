@@ -16,5 +16,4 @@ namespace CountInnerLettersInWords
             Console.Write(output);
         }
     }
-
 }
